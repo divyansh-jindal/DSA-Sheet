@@ -33,23 +33,51 @@ class Solution {
     }
     vector<int> eventualSafeNodes(int V, vector<int> adj[]) {
         // code here
-        int vis[V]={0};
-        int pathVis[V]={0};
-        int check[V]={0};
+        // int vis[V]={0};
+        // int pathVis[V]={0};
+        // int check[V]={0};
         
-        vector<int> safeNodes;
+        // vector<int> safeNodes;
         
+        // for(int i=0;i<V;i++){
+        //     if(!vis[i]){
+        //         dfs(i,vis,pathVis,check,adj);
+        //     }
+        // }
+        
+        // for(int i=0;i<V;i++){
+        //     if(check[i]) safeNodes.push_back(i);
+        // }
+        
+        // return safeNodes;
+        int indegree[V]={0};
+        vector<int> ans;
+        queue<int> q;
+        vector<int> rev[V];
         for(int i=0;i<V;i++){
-            if(!vis[i]){
-                dfs(i,vis,pathVis,check,adj);
+            for(auto it:adj[i]){
+                rev[it].push_back(i);
+                indegree[i]++;
             }
         }
         
         for(int i=0;i<V;i++){
-            if(check[i]) safeNodes.push_back(i);
+            if(indegree[i]==0) q.push(i);
         }
         
-        return safeNodes;
+        while(!q.empty()){
+            int node=q.front();
+            q.pop();
+            ans.push_back(node);
+            
+            for(auto it:rev[node]){
+                indegree[it]--;
+                if(indegree[it]==0) q.push(it);
+            }
+        }
+        
+        sort(ans.begin(),ans.end());
+        return ans;
     }
 };
 
