@@ -8,7 +8,6 @@ public:
             for (int i = 1; i < n; ++i) {
                a[i] = (a[i - 1] + a[i]) % MOD;
             }
-            // a = new_a;
         }
         
         return a[n - 1];
