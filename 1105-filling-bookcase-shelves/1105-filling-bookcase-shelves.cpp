@@ -3,7 +3,8 @@ public:
     int minHeightShelves(vector<vector<int>>& books, int shelfWidth) {
         vector<int> dp(books.size() + 1, 0);
 
-        
+        dp[0] = 0;
+        dp[1] = books[0][1];
 
         for (int i = 1; i <= books.size(); ++i) {
             int remainingShelfWidth = shelfWidth - books[i - 1][0];
