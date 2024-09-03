@@ -1,19 +1,24 @@
 class Solution {
 public:
     int getLucky(string s, int k) {
-        string numericString = "";
+        int currentNumber = 0;
         for (char ch : s) {
-            numericString += to_string(ch - 'a' + 1);
-        }
-
-        while (k-- > 0) {
-            int digitSum = 0;
-            for (char digit : numericString) {
-                digitSum += digit - '0';
+            int position = ch - 'a' + 1;
+            while (position > 0) {
+                currentNumber += position % 10;
+                position /= 10;
             }
-            numericString = to_string(digitSum);
         }
 
-        return stoi(numericString);
+        for (int i = 1; i < k; ++i) {
+            int digitSum = 0;
+            while (currentNumber > 0) {
+                digitSum += currentNumber % 10;
+                currentNumber /= 10;
+            }
+            currentNumber = digitSum;
+        }
+
+        return currentNumber;
     }
 };
